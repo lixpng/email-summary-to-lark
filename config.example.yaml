@@ -1,0 +1,38 @@
+# Email configuration
+email:
+  host: imap.example.com
+  port: 993
+  user: your-email@example.com
+  password: your-email-password
+  # Mailbox to monitor
+  mailbox: INBOX
+  # Reconnect delay in milliseconds
+  pollInterval: 30000
+
+# LLM configuration (OpenAI compatible API)
+llm:
+  # Model list, will try in order; auto-fallback on failure
+  models:
+    - name: gemini-2.5-flash
+      baseURL: https://generativelanguage.googleapis.com/v1beta/openai
+      apiKey: your-api-key
+    - name: gpt-4o
+      baseURL: https://api.openai.com/v1
+      apiKey: your-api-key
+  # Max retries with exponential backoff
+  maxRetries: 3
+  # Requests per minute limit
+  rpm: 5
+  # Prompt template, {content} will be replaced with email content
+  prompt: "请分析以下邮件内容，完成两个任务：\n1. 用中文简洁总结邮件内容，突出重点。如果邮件包含验证码，摘要中必须原样包含该验证码，不可省略或改写\n2. 判断这封邮件是否重要（如：紧急通知、需要回复、涉及金钱/合同/安全/验证码等）\n\n请严格按照以下JSON格式返回，不要返回其他内容：\n{\"summary\": \"中文摘要\", \"important\": true/false}\n\n邮件内容：\n{content}"
+
+# Feishu configuration
+feishu:
+  # Webhook URL for Feishu group bot
+  webhookUrl: https://open.feishu.cn/open-apis/bot/v2/hook/your-hook-id
+  # User ID to @mention for important emails (leave empty to disable)
+  mentionUserId: ""
+  # Retry configuration
+  retry:
+    maxRetries: 3
+    retryDelay: 5000

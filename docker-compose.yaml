@@ -1,0 +1,7 @@
+services:
+  email-to-lark:
+    build: .
+    container_name: email-to-lark
+    restart: unless-stopped
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
