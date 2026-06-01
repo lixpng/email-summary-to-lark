@@ -20,7 +20,7 @@ export class FeishuService {
 
   private buildEmailMessage(email: ProcessedEmail): Record<string, unknown> {
     const headerTemplate = email.important ? 'red' : 'turquoise'
-    const headerTitle = email.important ? '🔴 重要邮件通知' : '📧 邮件通知'
+    const headerTitle = `📧：${email.subject}`
 
     const elements: Record<string, unknown>[] = [
       {
